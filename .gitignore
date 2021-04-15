@@ -1,0 +1,10 @@
+# Ignorando archivos pesados
+/**/K_nearest_neighboors/KNN.ipynb
+
+/**/Libros/
+*.pdf
+*.odt
+*.png
+*.jpg
+*.pptx
+*.ipynb_checkpoints
