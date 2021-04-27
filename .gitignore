@@ -1,6 +1,10 @@
 # Ignorando archivos pesados
 /**/K_nearest_neighboors/KNN.ipynb
 
+#Ignorando carpetas no utiles
+/**/Practica4_Comparativo_de_Clasificadores/__pycache__
+/**/Practica3_Clasificador_por_minima_distancia/__pycache__
+
 /**/Libros/
 /**/SVMS/padierna_modules/
 *.pdf
