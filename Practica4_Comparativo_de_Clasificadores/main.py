@@ -9,12 +9,16 @@ Comparador de clasificadores:
     -Minima Distancia
     -K Nearest Neighboors
     -SVC RBF
+    
+    
+    
 """
 from numpy import genfromtxt
 from clasificador_minima_distancia import MinimaDistancia
-from FD import FronterasDeDesicion
+from VC import ValidacionCruzada
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+from pandas import DataFrame
 
 
 # Importamos los archivos .csv y arreglamos en la forma tradicional
@@ -30,31 +34,28 @@ y_true_1 = dataset1[:,-1]
 y_true_2 = dataset2[:,-1]
 y_true_3 = dataset3[:,-1]
 
-# Creamos una lista contenedora de los datasets y etiquetas para iterar sobre ellos
+# Creamos listas contenedoras
 datasets = [X_1,X_2,X_3]
 labels = [y_true_1,y_true_2,y_true_3]
-
-
-
-# Creamos una figura con un tamaño específico
-#fig = plt.figure(figsize = (10,15))
-# Para no tener empalmes en las graficas
-#fig.tight_layout()
-# Iteramos sobre los datasets, etiquetas y sobre un identificador de grafico
-#for dataset,label,i in zip(datasets,labels,range(1,4)):
-    # especificamos que haremos un grid de 3 filas 1 columna
- #   ax = plt.subplot(3,1,i)
-    # Graficamos en cada espacio del grid
-  #  ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap='plasma',s=2)
-   # ax.set_title(f"Dataset {i}")
-#plt.show()
-
-
-# Entrenando clasificadores
-
 clasificadores = [MinimaDistancia(),KNeighborsClassifier(n_neighbors=5),SVC(kernel="rbf",C = 10, gamma=0.1)]
-
 nombres = ["Minima Distancia", "KNeighborsClassifier","SVC RBF"]
 
-fd = FronterasDeDesicion(datasets, labels, clasificadores, nombres)
-fd.mostrar()
+# Realizando grafico de fronteras de desición 
+
+#fd = FronterasDeDesicion(datasets, labels, clasificadores, nombres)
+#fd.mostrar()
+
+# Realizando validacion cruzada
+vd = ValidacionCruzada(datasets, labels, clasificadores, nombres)
+accuracies = vd.calcular(pliegues=10)
+
+print ("\n\n")
+print("-----------------------------------------------------------------------")
+print("             Resultados: Validación cruzada de 10 pliegues")
+print("                   Tabla de accuracies por clasificador   ")
+print("                      por: I. Alejandro Gómez Pérez ")
+print("-----------------------------------------------------------------------")
+print("\n")
+
+df = DataFrame(accuracies,index=["Dataset linealmente separable", "Dataset anillos concentricos", "Dataset lunas"],columns=nombres)
+print(df)
