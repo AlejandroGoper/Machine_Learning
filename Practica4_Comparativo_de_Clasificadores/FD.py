@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.patches as mpatches
 def hacer_frontera(X,y,clf):
+    h = 0.02
 
     # Create color maps
     cmap_light = ListedColormap(['#FFAAAA', '#ffcc99', '#ffffb3','#b3ffff','#c2f0c2'])
@@ -32,11 +33,8 @@ def hacer_frontera(X,y,clf):
     plt.ylim(yy.min(), yy.max())
     
     patch0 = mpatches.Patch(color='#FF0000', label='1')
-    patch1 = mpatches.Patch(color='#ff9933', label='2')
-    #patch2 = mpatches.Patch(color='#FFFF00', label='3')
-    #patch3 = mpatches.Patch(color='#00ffff', label='4')
-    #patch4 = mpatches.Patch(color='#00FF00', label='5')
-    plt.legend(handles=[patch0, patch1])#, patch2, patch3,patch4])
+    patch1 = mpatches.Patch(color='#FFFF00', label='2')
+    plt.legend(handles=[patch0, patch1])
     
 
     #plt.title("5-Class classification (k = %i, weights = '%s')"
