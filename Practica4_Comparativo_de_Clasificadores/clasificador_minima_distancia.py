@@ -6,20 +6,23 @@
     de todos los puntos de cada clase en el dataset entrenamiento para encontrar el centroide de cada
     grupo y luego para cada punto del dataset de prueba verifica de que centro está más cerca y a ese
     lo asigna como predicción
-
-    Parámetros:
-        - trainning_ds: Data set de entrenamiento
-        - trainning_y_labels: Etiquetas del data set de entrenamiento 
-        - test_ds: Data set de prueba
 """
 
 from numpy import array,unique,where
 from pandas import DataFrame
 
 class MinimaDistancia():
+    # Método constructor
     def __init__(self):
         self.centros_de_clase = None
 
+    """
+        Método Fit: Realiza el entrenamiento del clasificador
+
+        Parámetros: 
+            - training_ds: Datos de prueba
+            - training_y_labels: Etiquetas de los datos de prueba
+    """
     def fit(self,trainning_ds,trainning_y_labels):
         # Utilizando pandas para el filtrado de las clases
         df = DataFrame(trainning_ds,columns=["X","Y"])
@@ -36,7 +39,15 @@ class MinimaDistancia():
             n = len(df_filtrado["X"])
             centroides.append([Sum_X/n,Sum_Y/n]) #Guardo el punto promedio de cada clase en una lista
         self.centros_de_clase = array(centroides) # Convierto la lista a un arreglo numpy
+    
+    """
+        Método Predict: Realiza las predicciones con el clasificador entrenado
 
+        Parámetros:
+            - test_ds: Data set de prueba
+        Regresa:
+            - predicted_labels: Array tipo numpy con las etiquetas predichas
+    """
     def predict(self,test_ds):
         # Realizo la clasificación por minima distancia
         # Calculo la distancia de cada punto en test_ds a cada uno de los centroides
