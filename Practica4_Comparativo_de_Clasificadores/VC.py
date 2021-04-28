@@ -20,14 +20,25 @@ class ValidacionCruzada():
         self.clasificadores = clasificadores
         self.nombres = nombres
 
+
+    """
+    Argumentos:
+        pliegues: numero de pliegues para realizar la validación cruzada
+        
+    Regresa:
+        accuracies_final_ds: arreglo del promedio de los k pliegues por cada clasificador por cada 
+                                dataset.
+    """
+   
     def calcular(self,pliegues):
         
         datasets = self.datasets
         labels = self.labels
         clasificadores = self.clasificadores
+        
         # Instanciamos la clase KFold
         kf = KFold(n_splits = pliegues)
-        
+        # arreglo que controla los accuracies a retornar
         accuracies_final_ds = []
         
         # Iteramos sobre los datasets
@@ -62,6 +73,6 @@ class ValidacionCruzada():
             accuracies.append(accuracies_por_pliego[:,0].sum()/pliegues)
             accuracies.append(accuracies_por_pliego[:,1].sum()/pliegues)
             accuracies.append(accuracies_por_pliego[:,2].sum()/pliegues)
+            # Añadir al arreglo final
             accuracies_final_ds.append(accuracies)
-        
         return array(accuracies_final_ds)
