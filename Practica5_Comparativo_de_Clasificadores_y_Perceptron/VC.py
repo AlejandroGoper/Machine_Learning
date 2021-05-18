@@ -73,6 +73,8 @@ class ValidacionCruzada():
             accuracies.append(accuracies_por_pliego[:,0].sum()/pliegues)
             accuracies.append(accuracies_por_pliego[:,1].sum()/pliegues)
             accuracies.append(accuracies_por_pliego[:,2].sum()/pliegues)
+            accuracies.append(accuracies_por_pliego[:,3].sum()/pliegues)
+            accuracies.append(accuracies_por_pliego[:,4].sum()/pliegues)
             # Añadir al arreglo final
             accuracies_final_ds.append(accuracies)
         return array(accuracies_final_ds)

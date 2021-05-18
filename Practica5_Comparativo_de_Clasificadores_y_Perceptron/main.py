@@ -15,9 +15,12 @@ Comparador de clasificadores:
 """
 from numpy import genfromtxt
 from clasificador_minima_distancia import MinimaDistancia
+from Perceptron import Perceptron
+from FD import FronterasDeDesicion
 from VC import ValidacionCruzada
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+from sklearn.linear_model import Perceptron as Per
 from pandas import DataFrame
 
 
@@ -37,8 +40,9 @@ y_true_3 = dataset3[:,-1]
 # Creamos listas contenedoras
 datasets = [X_1,X_2,X_3]
 labels = [y_true_1,y_true_2,y_true_3]
-clasificadores = [MinimaDistancia(),KNeighborsClassifier(n_neighbors=5),SVC(kernel="rbf",C = 10, gamma=0.1)]
-nombres = ["Minima Distancia", "KNeighborsClassifier","SVC RBF"]
+
+clasificadores = [MinimaDistancia(),KNeighborsClassifier(n_neighbors=5),SVC(kernel="rbf",C = 10, gamma=0.1),Perceptron(w0=1,w1=0.1, w2=0.1), Per()]
+nombres = ["Minima Distancia", "KNN","SVC RBF", "Perceptron", "Per Sklearn"]
 
 # Realizando grafico de fronteras de desición 
 
@@ -57,5 +61,5 @@ print("                      por: I. Alejandro Gómez Pérez ")
 print("-----------------------------------------------------------------------")
 print("\n")
 
-df = DataFrame(accuracies,index=["Dataset linealmente separable", "Dataset anillos concentricos", "Dataset lunas"],columns=nombres)
+df = DataFrame(accuracies,index=["linealmente separable", "anillos concentricos", "lunas"],columns=nombres)
 print(df)
