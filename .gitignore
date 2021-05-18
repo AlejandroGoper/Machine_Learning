@@ -1,5 +1,7 @@
 # Ignorando archivos pesados
 /**/K_nearest_neighboors/KNN.ipynb
+/**/Practica4_Comparativo_de_Clasificadores/ML_GomezPerez_Practica4.ipynb
+
 
 #Ignorando carpetas no utiles
 /**/Practica4_Comparativo_de_Clasificadores/__pycache__
