@@ -20,7 +20,7 @@ from FD import FronterasDeDesicion
 from VC import ValidacionCruzada
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
-from sklearn.linear_model import Perceptron as Per
+#from sklearn.linear_model import Perceptron as Per
 from pandas import DataFrame
 
 
@@ -41,13 +41,13 @@ y_true_3 = dataset3[:,-1]
 datasets = [X_1,X_2,X_3]
 labels = [y_true_1,y_true_2,y_true_3]
 
-clasificadores = [MinimaDistancia(),KNeighborsClassifier(n_neighbors=5),SVC(kernel="rbf",C = 10, gamma=0.1),Perceptron(w0=1,w1=0.1, w2=0.1), Per()]
-nombres = ["Minima Distancia", "KNN","SVC RBF", "Perceptron", "Per Sklearn"]
+clasificadores = [MinimaDistancia(),KNeighborsClassifier(n_neighbors=5),SVC(kernel="rbf",C = 10, gamma=0.1),Perceptron(w0=1,w1=0.1, w2=0.1)]
+nombres = ["Minima Distancia", "KNN","SVC RBF", "Perceptron"]
 
 # Realizando grafico de fronteras de desición 
 
-#fd = FronterasDeDesicion(datasets, labels, clasificadores, nombres)
-#fd.mostrar()
+fd = FronterasDeDesicion(datasets, labels, clasificadores, nombres)
+fd.mostrar()
 
 # Realizando validacion cruzada
 vd = ValidacionCruzada(datasets, labels, clasificadores, nombres)
