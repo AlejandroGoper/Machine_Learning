@@ -67,15 +67,15 @@ class FronterasDeDesicion():
         clasificadores = self.clasificadores
         nombres = self.nombres
         # creo una figura lo suficientemente grande 
-        fig = plt.figure(figsize=(20,20))
+        fig = plt.figure(figsize=(30,30))
         # pongo esto para que no se empalmen
         fig.tight_layout()
         
         # Iteramos sobre los datasets,labels y un identificador de las graficas de datos puros
-        for dataset,label,id_ds in zip(datasets,labels,[5,10,15]):
+        for dataset,label,id_ds in zip(datasets,labels,[6,12,18,24]):
             # id_ds es para ubicar las graficas de los datasets al final de cada renglon
             # tenemos un grid de 3 filas y 5 columnas
-            ax = plt.subplot(3,5,id_ds)
+            ax = plt.subplot(4,6,id_ds)
             # grafico al final de cada renglon el dataset original
             ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap='plasma',s=2)
             ax.set_title("Dataset original")
@@ -86,7 +86,7 @@ class FronterasDeDesicion():
                 # Realizamos la particion fina para graficar la frontera de desición
                 Z,xx,yy = self.hacer_grid(dataset,clasificador)
                 # Graficamos en el lugar deseado 
-                ax = plt.subplot(3,5,(id_ds-5)+id_clf)
+                ax = plt.subplot(4,6,(id_ds-6)+id_clf)
                 # Graficamos la partción fina (frontera de desición) 
                 ax.pcolormesh(xx,yy,Z,cmap=cmap_light)
                 # Graficamos alli mismo el dataset original 
