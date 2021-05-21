@@ -48,7 +48,7 @@ class PerceptronMulticapa():
     
     """ Propagación hacia adelante a través de la red"""
     def adelante(self, X):
-        X = append(X,ones((len(X),1),axis=1)) # Agregamos 1 a las entradas para añadir el bias
+        X = append(X,ones((len(X),1)),axis=1) # Agregamos 1 a las entradas para añadir el bias
         self.z1 = dot(X,self.w1) # Producto punto entre X (entradas) y el primer conjunto de 3x2 pesos
         self.z2 = self.sigmoide(self.z1) # Evaluamos el resultado en la función de activación
         self.z3 = dot(self.z2,self.w2) # Producto punto entre el resultado de las capas ocultas (z2) y el segundo conjunto de 3x1 pesos
@@ -56,7 +56,7 @@ class PerceptronMulticapa():
         return o
     """ Algoritmo backpropagation para los errores """
     def atras(self,X,y,output,step):
-        X = append(X,ones((len(X),1),axis=1)) # Agregamos 1 a las entradas para añadir el bias
+        X = append(X,ones((len(X),1)),axis=1) # Agregamos 1 a las entradas para añadir el bias
         self.o_error = y - output # error en la salida
         self.o_delta = self.o_error*self.sigmoide_prima(output)*step # Aplicando la derivada de la sigmoide al error 
         self.z2_error = self.o_delta.dot(self.w2.T) # z2 error: que tanto contribuye al error de salida nuestra capa oculta de pesos
@@ -71,6 +71,6 @@ class PerceptronMulticapa():
     """ Método fit"""
     def fit(self, X, y,epochs = 1000, step = 0.01):
         for epoch in range(epochs):
-            X = append(X,ones((len(X),1),axis=1)) # Agregamos 1 a las entradas para añadir el bias
+            X = append(X,ones((len(X),1)),axis=1) # Agregamos 1 a las entradas para añadir el bias
             output = self.adelante(X)
             self.atras(X, y, output, step)
