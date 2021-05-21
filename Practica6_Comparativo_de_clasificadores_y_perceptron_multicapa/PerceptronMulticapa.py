@@ -12,7 +12,7 @@ con el resto de scripts de otros clasificadores
 """
 
 from numpy.random import randn
-from numpy import exp,append,ones,dot
+from numpy import exp,append,ones,dot,array
 
 class PerceptronMulticapa():
     """ Metodo constructor y definicion de atributos de clase"""
@@ -66,7 +66,11 @@ class PerceptronMulticapa():
     
     """ Método Predict """
     def predict(self, X):
-        return self.adelante(X)
+        predicted = X.apply(self.adelante,axis=1)
+        predicted_value = [i[0] for i in predicted]
+        umbral = 0.5
+        predicted_label = [0 if i < umbral else 1 for i in predicted_value]  
+        return array(predicted_label)
     
     """ Método fit"""
     def fit(self, X, y,epochs = 1000, step = 0.01):
