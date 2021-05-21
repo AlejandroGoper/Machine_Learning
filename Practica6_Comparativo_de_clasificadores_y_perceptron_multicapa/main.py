@@ -18,6 +18,7 @@ from clasificador_minima_distancia import MinimaDistancia
 from Perceptron import Perceptron
 from FD import FronterasDeDesicion
 from VC import ValidacionCruzada
+from PerceptronMulticapa import PerceptronMulticapa
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 #from sklearn.linear_model import Perceptron as Per
@@ -60,6 +61,7 @@ d3 = DataFrame({'x1':normal(mu_x,sigma_x,1000)-1,'x2':normal(mu_x,sigma_x,1000)-
 d4 = DataFrame({'x1':normal(mu_x,sigma_x,1000)-1,'x2':normal(mu_x,sigma_x,1000)+1,'type':1})
 dataset4 = array(concat([d1,d2,d3,d4],ignore_index=True))
 
+
 x_4 = dataset4[:,:-1] # Eliminando la ultima columna
 y_true_4 = dataset4[:,-1] # Tomamos solo la ultima columna
 
@@ -67,17 +69,20 @@ y_true_4 = dataset4[:,-1] # Tomamos solo la ultima columna
 datasets = [x_1,x_2,x_3,x_4]
 labels = [y_true_1,y_true_2,y_true_3,y_true_4]
 
-clasificadores = [MinimaDistancia(),KNeighborsClassifier(n_neighbors=5),SVC(kernel="rbf",C = 10, gamma=0.1),Perceptron(w0=1,w1=0.1, w2=0.1)]
-nombres = ["Minima Distancia", "KNN","SVC RBF", "Perceptron"]
+clasificadores = [MinimaDistancia(),KNeighborsClassifier(n_neighbors=5),
+                  SVC(kernel="rbf",C = 10, gamma=0.1),Perceptron(w0=1,w1=0.1, w2=0.1),
+                  PerceptronMulticapa()]
+
+nombres = ["Minima Distancia", "KNN","SVC RBF", "Perceptron", "Perceptron Multicapa"]
 
 # Realizando grafico de fronteras de desición 
 
-#fd = FronterasDeDesicion(datasets, labels, clasificadores, nombres)
-#fd.mostrar()
+fd = FronterasDeDesicion(datasets, labels, clasificadores, nombres)
+fd.mostrar()
 
 # Realizando validacion cruzada
-#vd = ValidacionCruzada(datasets, labels, clasificadores, nombres)
-#accuracies = vd.calcular(pliegues=10)
+vd = ValidacionCruzada(datasets, labels, clasificadores, nombres)
+accuracies = vd.calcular(pliegues=10)
 
 print ("\n\n")
 print("-----------------------------------------------------------------------")
@@ -87,5 +92,5 @@ print("                      por: I. Alejandro Gómez Pérez ")
 print("-----------------------------------------------------------------------")
 print("\n")
 
-#df = DataFrame(accuracies,index=["linealmente separable", "anillos concentricos", "lunas"],columns=nombres)
-#print(df)
+df = DataFrame(accuracies,index=["linealmente separable", "anillos concentricos", "lunas"],columns=nombres)
+print(df)
