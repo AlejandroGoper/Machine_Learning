@@ -69,7 +69,7 @@ class PerceptronMulticapa():
         return self.adelante(X)
     
     """ Método fit"""
-    def fit(self, X, y,epochs = 10, step = 0.05):
+    def fit(self, X, y,epochs = 1000, step = 0.01):
         for epoch in range(epochs):
             X = append(X,ones((len(X),1),axis=1)) # Agregamos 1 a las entradas para añadir el bias
             output = self.adelante(X)
