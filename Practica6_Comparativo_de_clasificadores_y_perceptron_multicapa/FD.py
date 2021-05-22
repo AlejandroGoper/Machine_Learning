@@ -80,7 +80,7 @@ class FronterasDeDesicion():
             ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap='plasma',s=2)
             ax.set_title("Dataset original")
             # Ahora iteramos por clasificadores, nombre y un identificador de clasificador
-            for clasificador,nombre,id_clf in zip(clasificadores,nombres,range(1,5)):
+            for clasificador,nombre,id_clf in zip(clasificadores,nombres,range(1,6)):
                 # Entrenamos el clasificador
                 clasificador.fit(dataset,label)
                 # Realizamos la particion fina para graficar la frontera de desición
