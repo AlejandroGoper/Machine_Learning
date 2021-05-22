@@ -69,6 +69,7 @@ y_true_4 = dataset4[:,-1] # Tomamos solo la ultima columna
 datasets = [x_1,x_2,x_3,x_4]
 labels = [y_true_1,y_true_2,y_true_3,y_true_4]
 
+
 clasificadores = [MinimaDistancia(),KNeighborsClassifier(n_neighbors=5),
                   SVC(kernel="rbf",C = 10, gamma=0.1),Perceptron(w0=1,w1=0.1, w2=0.1),
                   PerceptronMulticapa()]
@@ -81,6 +82,7 @@ fd = FronterasDeDesicion(datasets, labels, clasificadores, nombres)
 fd.mostrar()
 
 # Realizando validacion cruzada
+
 vd = ValidacionCruzada(datasets, labels, clasificadores, nombres)
 accuracies = vd.calcular(pliegues=10)
 
@@ -92,5 +94,12 @@ print("                      por: I. Alejandro Gómez Pérez ")
 print("-----------------------------------------------------------------------")
 print("\n")
 
-df = DataFrame(accuracies,index=["linealmente separable", "anillos concentricos", "lunas"],columns=nombres)
+df = DataFrame(accuracies,index=["linealmente separable", "anillos concentricos", "lunas","XOR"],columns=["C1","C2","C3","C4","C5"])
 print(df)
+
+print("=======================================================================")
+print("C1: Minima Distancia")
+print("C2: KNN")
+print("C3: SVC RBF")
+print("C4: Perceptron")
+print("C5: Perceptron Multicapa")
