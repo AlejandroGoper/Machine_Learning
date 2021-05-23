@@ -76,7 +76,7 @@ class PerceptronMulticapa():
         predicted = ds.apply(self.adelante,axis=1)
         predicted_value = [i[0] for i in predicted]
         umbral = 0.5
-        predicted_label = [0 if i < umbral else 1 for i in predicted_value]  
+        predicted_label = [0.0 if i < umbral else 1.0 for i in predicted_value]  
         return array(predicted_label)
     
     """ Método fit"""
