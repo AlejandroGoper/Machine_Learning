@@ -61,6 +61,8 @@ class ValidacionCruzada():
                     clasificador.fit(train_ds,train_lbl)
                     predicted_lbl = clasificador.predict(test_ds)
                     # Realizo la matriz de confusión
+                    cm = confusion_matrix(test_lbl,predicted_lbl)
+                    """
                     # Solución Ad-hoc para el clasificador perceptron multicapa
                     if((clasificador == clasificadores[-1]) and id_ds == 3):
                         for i in range(len(predicted_lbl)):
@@ -68,8 +70,7 @@ class ValidacionCruzada():
                         cm = confusion_matrix(test_lbl,predicted_lbl,labels=(1,0))
                     else:
                         cm = confusion_matrix(test_lbl,predicted_lbl)
-                        if(clasificador == clasificadores[0] and id_ds == 3):
-                            print(cm)
+                    """
                     # Calculo el accuracy
                     acc = trace(cm)/cm.sum()
                     accuracies_clasificadores.append(acc)
