@@ -117,7 +117,7 @@ class PMLMC:
          Realiza entrenamiento de la red con el algoritmo backpropagation
     """   
      
-    def fit(self, x_train,y_train,epochs=50,learning_rate=0.1):
+    def fit(self, x_train,y_train,epochs=100,learning_rate=0.5):
         # Calculando la media y desviacion estandar de cada dimension
         self.x_mean = x_train.mean(axis=0)
         self.x_std = x_train.std(axis=0)
