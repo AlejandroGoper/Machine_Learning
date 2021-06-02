@@ -76,30 +76,35 @@ class FronterasDeDesicion():
         clasificadores = self.clasificadores
         nombres = self.nombres
         # creo una figura lo suficientemente grande 
-        fig = plt.figure(figsize=(30,30))
+        fig = plt.figure(figsize=(20,5))
         # pongo esto para que no se empalmen
         fig.tight_layout()
         
+        num_clf = len(clasificadores) + 1
+        num_ds = len(datasets)
+        numeros = arange(num_clf,num_ds*num_clf+1, num_clf)
+        
         # Iteramos sobre los datasets,labels y un identificador de las graficas de datos puros
-        for dataset,label,id_ds in zip(datasets,labels,[6,12,18,24]):
+        for dataset,label,id_ds in zip(datasets,labels,numeros):
             # id_ds es para ubicar las graficas de los datasets al final de cada renglon
             # tenemos un grid de 3 filas y 5 columnas
-            ax = plt.subplot(4,6,id_ds)
+            print(num_ds,num_clf,id_ds)
+            ax = plt.subplot(num_ds,num_clf,id_ds)
             # grafico al final de cada renglon el dataset original
-            ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap='plasma',s=2,alpha=1)
+            ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap='plasma',s=20,alpha=1)
             ax.set_title("Dataset original")
             # Ahora iteramos por clasificadores, nombre y un identificador de clasificador
-            for clasificador,nombre,id_clf in zip(clasificadores,nombres,range(1,6)):
+            for clasificador,nombre,id_clf in zip(clasificadores,nombres,range(1,num_clf+1)):
                 # Entrenamos el clasificador
                 clasificador.fit(dataset,label)
                 # Realizamos la particion fina para graficar la frontera de desición
                 Z,xx,yy = self.hacer_grid(dataset,clasificador)
                 # Graficamos en el lugar deseado 
-                ax = plt.subplot(4,6,(id_ds-6)+id_clf)
+                ax = plt.subplot(num_ds,num_clf,(id_ds-num_clf)+id_clf)
                 # Graficamos la partción fina (frontera de desición) 
                 ax.pcolormesh(xx,yy,Z,cmap=ListedColormap(cmap_set1),alpha=0.2)
                 # Graficamos alli mismo el dataset original 
-                ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap=ListedColormap(cmap_set1),s=2,alpha=1)
+                ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap=ListedColormap(cmap_set1),s=20,alpha=1)
                 # Definimos dominio y rango de la grafica
                 ax.set_xlim(xx.min(),xx.max())
                 ax.set_ylim(yy.min(),yy.max())

@@ -70,11 +70,13 @@ class ValidacionCruzada():
             accuracies_por_pliego = array(accuracies_por_pliego)
             # Arreglo de los promedios de los accuracies de cada clasificador por data set
             accuracies = []
+            # Para 4 clasificadores
             accuracies.append(accuracies_por_pliego[:,0].sum()/pliegues)
             accuracies.append(accuracies_por_pliego[:,1].sum()/pliegues)
             accuracies.append(accuracies_por_pliego[:,2].sum()/pliegues)
-            accuracies.append(accuracies_por_pliego[:,3].sum()/pliegues)
-            accuracies.append(accuracies_por_pliego[:,4].sum()/pliegues)
+            #accuracies.append(accuracies_por_pliego[:,3].sum()/pliegues)
+            # Descomentar la linea de abajo para agregar otro clsificador mas
+            # accuracies.append(accuracies_por_pliego[:,4].sum()/pliegues)
             # Añadir al arreglo final
             accuracies_final_ds.append(accuracies)
         return array(accuracies_final_ds)
