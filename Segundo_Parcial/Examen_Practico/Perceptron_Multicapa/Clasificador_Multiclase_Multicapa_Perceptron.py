@@ -109,7 +109,7 @@ class PMLMC:
          y_hat = np.dot(self.h, self.w2) + self.b2
          
          # mandamos a la funcion de activacion lineal de la ultima capa
-         return self.activation(y_hat)
+         return self.activacion(y_hat)
      
     """
          Metodo: Fit
