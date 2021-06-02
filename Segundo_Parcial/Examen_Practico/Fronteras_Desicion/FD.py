@@ -6,18 +6,19 @@
 """
 
 from matplotlib.colors import ListedColormap
+from matplotlib import cm
 import matplotlib.pyplot as plt
 from numpy import meshgrid,arange,c_
 import matplotlib.patches as mpatches
 
 class FronterasDeDesicion():
     # Metodo constructor 
-    def __init__(self, datasets,etiquetas,clasificadores,nombres):
+    def __init__(self, datasets,etiquetas,clasificadores,nombres,clases):
         self.datasets = datasets
         self.labels = etiquetas
         self.clasificadores = clasificadores
         self.nombres = nombres
-
+        self.clases = clases
     """
         Realiza una particion muy fina de elementos para poder graficar la frontera de desicion
         en función del clasificador.
@@ -56,11 +57,19 @@ class FronterasDeDesicion():
     
     def mostrar(self):
         # Create color maps
-        cmap_light = ListedColormap(['#FFAAAA', '#c2f0c2']) 
-        cmap_bold = ListedColormap(['#FF0000', '#00FF00'])
+        cmap_set1 = cm.get_cmap("Set1").colors[:self.clases]
+        patches = []
+        for i in range(self.clases):
+            patches.append(mpatches.Patch(color=cmap_set1[i], label="Clase {}".format(i)))
+
+        #cmap_bold = ListedColormap(cm.get_cmap("Set1").colors[:self.clases])
+        #colores_fondo = ['#FFAAAA', '#c2f0c2'] #  '#fbcf71', '#ffa264', '', '', ''
+        #colores_puntos = ['#FF0000', '#00FF00'] # '#997619', '#a44c10', '', '', '' 
+        #cmap_light = ListedColormap(colores_fondo) 
+        #cmap_bold = ListedColormap(colores_puntos)
         # Para identificar cada region con un color         
-        patch0 = mpatches.Patch(color='#FF0000', label='Clase 1')
-        patch1 = mpatches.Patch(color='#00FF00', label='Clase 2')
+        #patch0 = mpatches.Patch(color='#FF0000', label='Clase 1')
+        #patch1 = mpatches.Patch(color='#00FF00', label='Clase 2')
         # atributos de clase 
         datasets = self.datasets
         labels = self.labels
@@ -77,7 +86,7 @@ class FronterasDeDesicion():
             # tenemos un grid de 3 filas y 5 columnas
             ax = plt.subplot(4,6,id_ds)
             # grafico al final de cada renglon el dataset original
-            ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap='plasma',s=2)
+            ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap='plasma',s=2,alpha=1)
             ax.set_title("Dataset original")
             # Ahora iteramos por clasificadores, nombre y un identificador de clasificador
             for clasificador,nombre,id_clf in zip(clasificadores,nombres,range(1,6)):
@@ -88,14 +97,14 @@ class FronterasDeDesicion():
                 # Graficamos en el lugar deseado 
                 ax = plt.subplot(4,6,(id_ds-6)+id_clf)
                 # Graficamos la partción fina (frontera de desición) 
-                ax.pcolormesh(xx,yy,Z,cmap=cmap_light)
+                ax.pcolormesh(xx,yy,Z,cmap=ListedColormap(cmap_set1),alpha=0.2)
                 # Graficamos alli mismo el dataset original 
-                ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap = cmap_bold,s=2)
+                ax.scatter(dataset[:,0],dataset[:,1],c=label,cmap=ListedColormap(cmap_set1),s=2,alpha=1)
                 # Definimos dominio y rango de la grafica
                 ax.set_xlim(xx.min(),xx.max())
                 ax.set_ylim(yy.min(),yy.max())
                 # Agregamos la leyenda para identificar las clases 
-                ax.legend(handles=[patch0,patch1])
+                ax.legend(handles=patches)
                 # Agregamos el titulo correspondiente a cada grafica
                 ax.set_title(f"clasificador: {nombre} ")
                 
