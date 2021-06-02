@@ -121,15 +121,18 @@ class PMLMC:
         # Calculando la media y desviacion estandar de cada dimension
         self.x_mean = x_train.mean(axis=0)
         self.x_std = x_train.std(axis=0)
+        
+        x_prob = (x_train - self.x_mean)/self.x_std
+        
         for epoch in range(epochs):
             # calculamos salida del perceptron
-            y_pred = self.neuron_output(x_train)
+            y_pred = self.neuron_output(x_prob)
             # Backpropagation
             dldy = self.d_loss(y_pred, y_train) 
             dl_w2 = np.dot(self.h.T, dldy)
             dl_b2 = dldy.mean(axis=0)
             dldh = np.dot(dldy, self.w2.T)*self.relu_prime(self.h_pre)      
-            dl_w1 = np.dot(x_train.T, dldh)
+            dl_w1 = np.dot(x_prob.T, dldh)
             dl_b1 = dldh.mean(axis=0)
             # Actualizando pesos
             self.w1 = self.w1 - learning_rate * dl_w1
