@@ -18,7 +18,7 @@ import numpy as np
 
 # Nombre proveniente de las siglas Perceptron Multi Layer Multi Classifier
 class PMLMC:
-    def __init__(self, dim_input,neurons_H, neurons_O):
+    def __init__(self, dim_input,neurons_H, neurons_O, epochs=100,learning_rate=0.5):
         # Inicializando pesos de la capa 1 de manera aleatoria con dist. normal
         self.w1 = np.random.normal(loc=0.0,scale=np.sqrt(2/(dim_input+neurons_H)),size=(dim_input,neurons_H))
         # Inicializando BIAS de la capa 1 en 0
@@ -41,6 +41,11 @@ class PMLMC:
         self.x_mean = None
         self.x_std = None
     
+        # Atributos para el aprendizaje
+        
+        self.epochs = epochs
+        self.lr = learning_rate
+        
     """
         Metodo: activacion
         
@@ -117,7 +122,10 @@ class PMLMC:
          Realiza entrenamiento de la red con el algoritmo backpropagation
     """   
      
-    def fit(self, x_train,y_train,epochs=100,learning_rate=0.5):
+    def fit(self, x_train,y_train):
+        
+        epochs = self.epochs
+        learning_rate = self.lr
         # Calculando la media y desviacion estandar de cada dimension
         self.x_mean = x_train.mean(axis=0)
         self.x_std = x_train.std(axis=0)

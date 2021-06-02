@@ -22,7 +22,7 @@ import numpy as np
 
 # Nombre de la clase derivado de Perceptron Multiclass Classifier
 class PMC:
-    def __init__(self, n_inputs , n_outputs):
+    def __init__(self, n_inputs , n_outputs, epochs = 50, learning_rate = 0.1):
         # Ahora habran n_inputs pesos asociados a cada neurona de salida
         # lo cual es una matriz de n_inputs x n_outputs de pesos 
         self.w = np.random.rand(n_inputs,n_outputs)
@@ -30,7 +30,10 @@ class PMC:
         # Atributos para normalizacion de puntos nuevos a predecir
         self.x_mean = None
         self.x_std = None
-    
+            
+        # Atributos para el aprendizaje
+        self.epochs = epochs
+        self.lr = learning_rate
     """
         Metodo: Funcion de activacion
         
@@ -82,8 +85,10 @@ class PMC:
         
         Entrenamiento de la red
     """
-    def fit(self,x_train,y_train,epochs = 15, learning_rate = 0.1):
+    def fit(self,x_train,y_train):
         
+        epochs = self.epochs
+        learning_rate = self.lr
         self.x_mean = x_train.mean(axis=0)
         self.x_std = x_train.std(axis=0)
         
