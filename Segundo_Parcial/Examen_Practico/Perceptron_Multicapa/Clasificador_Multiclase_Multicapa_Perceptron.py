@@ -20,11 +20,11 @@ import numpy as np
 class PMLMC:
     def __init__(self, dim_input,neurons_H, neurons_O):
         # Inicializando pesos de la capa 1 de manera aleatoria con dist. normal
-        self.w1 = np.random.normal(loc=0.0,scale=np.sqrt(2/(dim_input+neurons_H)))
+        self.w1 = np.random.normal(loc=0.0,scale=np.sqrt(2/(dim_input+neurons_H)),size=(dim_input,neurons_H))
         # Inicializando BIAS de la capa 1 en 0
         self.b1 = np.zeros(neurons_H)
         # Inicializando pesos de la capa 2 de manera aleatoria con dist. normal
-        self.w2 = np.random.normal(loc=0.0,scale=np.sqrt(2/(neurons_H+neurons_O)))
+        self.w2 = np.random.normal(loc=0.0,scale=np.sqrt(2/(neurons_H+neurons_O)),size=(neurons_H,neurons_O))
         # Inicializando BIAS de la capa 1 en 0
         self.b2 = np.zeros(neurons_O)
         
