@@ -128,7 +128,7 @@ class PMLMC:
             dldy = self.d_loss(y_pred, y_train) 
             dl_w2 = np.dot(self.h.T, dldy)
             dl_b2 = dldy.mean(axis=0)
-            dldh = np.dot(dldy, self.w2.T)*self.reluPrime(self.h_pre)      
+            dldh = np.dot(dldy, self.w2.T)*self.relu_prime(self.h_pre)      
             dl_w1 = np.dot(x_train.T, dldh)
             dl_b1 = dldh.mean(axis=0)
             # Actualizando pesos
