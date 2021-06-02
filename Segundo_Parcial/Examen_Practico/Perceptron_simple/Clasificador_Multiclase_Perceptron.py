@@ -37,7 +37,7 @@ class PMC:
         Softmax
     """
     def activacion(self, z):
-        return np.exp(z)/np.exp(z).sum()   
+        return np.exp(z)/np.exp(z).sum(axis=-1,keepdims=True)   
     
     """
         Metodo: d_loss 
