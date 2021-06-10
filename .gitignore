@@ -8,9 +8,12 @@
 /**/Practica3_Clasificador_por_minima_distancia/__pycache__
 /**/Proyecto_Final/Reporte/
 /**/Proyecto_Final/Rubricas/
+/**/Proyecto_Final/Codigo/Data/
 
 /**/Libros/
 /**/SVMS/padierna_modules/
+*.mp3
+*.wav
 *.pdf
 *.odt
 *.png
